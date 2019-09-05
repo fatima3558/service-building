@@ -16,6 +16,7 @@ class LoginContainer extends Component {
 	}
 
 	handleSubmit = async (e) => {
+		e.preventDefault()
 		const loginInfo = JSON.stringify(this.state)
 
 		const loginResponse = await fetch('http://localhost:8000/users/login', {

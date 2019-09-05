@@ -18,6 +18,7 @@ class RegisterContainer extends Component {
 	}
 
 	handleSubmit = async (e) => {
+		e.preventDefault()
 		const user = JSON.stringify(this.state)
 
 	    const newUser = await fetch('http://localhost:8000/users/register', {
