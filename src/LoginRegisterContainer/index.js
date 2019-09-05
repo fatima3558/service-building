@@ -24,11 +24,11 @@ class LoginRegisterContainer extends Component {
 				{this.state.isRegistered ? 
 					<LoginContainer 
 						toggleRegistered={this.toggleRegistered}
-						handleLogin={this.props.handleLogin}
+						setSession={this.props.setSession}
 					/> : 
 					<RegisterContainer 
 						toggleRegistered={this.toggleRegistered}
-						handleRegister={this.props.handleRegister}
+						setSession={this.props.setSession}
 					/>
 				}
 			</div>

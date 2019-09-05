@@ -12,14 +12,17 @@ class App extends Component {
     }
   }
 
-  // handle register method
-
-  // handle login method
+  // set session after login or register: don't forget to redirect after!
+  setSession = (user) => {
+   
+  }
 
   render() {
     return (
       <div className="App">
-        <LoginRegisterContainer />
+        <LoginRegisterContainer 
+          setSession={this.handleRegister}
+        />
       </div>
     )
   }

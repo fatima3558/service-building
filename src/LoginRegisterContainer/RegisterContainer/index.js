@@ -7,6 +7,7 @@ class RegisterContainer extends Component {
 			username: '',
 			password: '',
 			zipcode: '',
+			phone: ''
 		}
 	}
 
@@ -16,12 +17,34 @@ class RegisterContainer extends Component {
 		})
 	}
 
+	handleSubmit = async (e) => {
+		const user = JSON.stringify(this.state)
+
+	    const newUser = await fetch('http://localhost:8000/users/register', {
+	      method: 'POST',
+	      credentials: 'include',
+	      body: user,
+	      headers: {
+	        'Content-Type': 'application/json'
+	      }
+	    })
+
+	    if(newUser.status !== 201) {
+	      throw Error('Could not register user')
+	    }
+
+	    const newUserResponse = await newUser.json()
+
+	    delete newUserResponse.password
+	    this.props.setSession(newUserResponse);
+	}
+
 	render() {
 		return(
 			<div>
 				<div>
 					<h2>Register for an account below:</h2>
-					<form onSubmit={this.props.handleRegister}>
+					<form onSubmit={this.handleSubmit}>
 						<input
 							name="username"
 							placeholder="username"
@@ -41,7 +64,7 @@ class RegisterContainer extends Component {
 						<input
 							name="zipcode"
 							placeholder="zipcode"
-							type="number"
+							type="text"
 							value={this.state.zipcode}
 							onChange={this.handleChange}
 						/>
@@ -54,8 +77,8 @@ class RegisterContainer extends Component {
 							onChange={this.handleChange}
 						/>
 						<br/>
+						<button>Register</button>
 					</form>
-					<button>Register</button>
 				</div>
 				<button onClick={this.props.toggleRegistered}>Need to Log In?</button>
 			</div>
