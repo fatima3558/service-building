@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      Put stuff here!
-    </div>
-  );
+import LoginRegisterContainer from './LoginRegisterContainer'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      user: null,
+      loggedIn: false
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <LoginRegisterContainer />
+      </div>
+    )
+  }
 }
 
 export default App;
