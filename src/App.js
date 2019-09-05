@@ -3,6 +3,7 @@ import './App.css';
 
 import UsersContainer from './UsersContainer';
 import PlacesContainer from './PlacesContainer';
+import HeaderContainer from './HeaderContainer'
 
 class App extends Component {
   constructor() {
@@ -21,9 +22,26 @@ class App extends Component {
     })
   }
 
+  toggleView = () => {
+    if(this.state.view === 'user') {
+      this.setState({
+        view: 'place'
+      })
+    } else if(this.state.view === 'place') {
+      this.setState({
+        view: 'user'
+      })
+    }
+  }
+
   render() {
     return (
       <div className="App">
+        <HeaderContainer 
+          user={this.state.user}
+          view={this.state.view}
+          toggleView={this.toggleView}
+        />
         {this.state.view === 'user' ?
           <UsersContainer 
             user={this.state.user}
