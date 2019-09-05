@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 
+import OnePlaceContainer from './OnePlaceContainer'
+
 class PlacesContainer extends Component {
     constructor() {
         super()
         this.state = {
             search: '',
-            list: []
+            list: [],
+            selectedPlace: null,
         }
     }
 
     componentDidMount() {
         this.getList()
-        this.showList()
     }
 
     getList = async () => {
@@ -29,22 +31,47 @@ class PlacesContainer extends Component {
         })
     }
 
-    handleChange = (e) => {
-        this.setState({
-            [e.currentTarget.name]: e.currentTarget.value
-        })
+    seeOne = async (id) => {
+    	const selectedPlaceResponse = await fetch(`http://localhost:8000/places/${id}`)
+    	if(selectedPlaceResponse.status !== 200) {
+    		throw Error('Could not find this place')
+    	}
+    	const selectedPlace = await selectedPlaceResponse.json()
+
+    	this.setState({
+    		selectedPlace: selectedPlace
+    	})
     }
 
-    doSearch = (e) => {
-        e.preventDefault()
-        console.log(this.state.search, "what we're about throw at the api!");
+    seeAll = () => {
+    	this.setState({
+    		selectedPlace: null
+    	})
     }
     
     render() {
-        console.log(this.state, "state in placesContainer");
+	    const showList = this.state.list.map(place => {
+    		return(
+    			<div key={place.id}>
+    				<p>{place.name}, Rating: {place.rating}</p>
+    				<p>{place.address}</p>
+    				<button onClick={this.seeOne.bind(null, place.id)}>See Reviews</button>
+    				<br/>
+    			</div>
+    		)
+    	})
+
         return(
             <div>
-                <PlacesList />
+            	{this.state.selectedPlace ? 
+            		<OnePlaceContainer 
+            			selectedPlace={this.state.selectedPlace}
+            			seeAll={this.seeAll}
+            		/> :
+            		<div>
+                		{showList}
+                	</div>
+            	}
             </div>
         )
     }

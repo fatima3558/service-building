@@ -19,7 +19,7 @@ class LoginContainer extends Component {
 		e.preventDefault()
 		const loginInfo = JSON.stringify(this.state)
 
-		const loginResponse = await fetch('http://localhost:8000/users/login', {
+		const loginResponse = await fetch(`http://localhost:8000/users/login`, {
 			method: 'post',
 			credentials: 'include',
 			body: loginInfo,

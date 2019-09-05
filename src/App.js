@@ -14,7 +14,7 @@ class App extends Component {
     }
   }
 
-  // set session after login or register: don't forget to redirect after!
+  // set session after login or register
   setSession = (user) => {
     this.setState({
       user: user,

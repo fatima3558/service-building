@@ -21,7 +21,7 @@ class RegisterContainer extends Component {
 		e.preventDefault()
 		const user = JSON.stringify(this.state)
 
-	    const newUser = await fetch('http://localhost:8000/users/register', {
+	    const newUser = await fetch(`http://localhost:8000/users/register`, {
 	      method: 'POST',
 	      credentials: 'include',
 	      body: user,
