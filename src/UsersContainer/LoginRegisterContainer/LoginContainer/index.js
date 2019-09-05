@@ -33,7 +33,6 @@ class LoginContainer extends Component {
 		}
 		const loginSuccessful = await loginResponse.json()
 		delete loginSuccessful.password
-		console.log(loginSuccessful, "response after successful login");
 		this.props.setSession(loginSuccessful)
 	}
 
