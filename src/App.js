@@ -12,6 +12,10 @@ class App extends Component {
     }
   }
 
+  // handle register method
+
+  // handle login method
+
   render() {
     return (
       <div className="App">

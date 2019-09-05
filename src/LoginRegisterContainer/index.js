@@ -20,9 +20,16 @@ class LoginRegisterContainer extends Component {
 	render() {
 		return(
 			<div>
+				<h1>Welcome to ServiceBuilding!</h1>
 				{this.state.isRegistered ? 
-					<LoginContainer toggleRegistered={this.toggleRegistered}/> : 
-					<RegisterContainer toggleRegistered={this.toggleRegistered}/>
+					<LoginContainer 
+						toggleRegistered={this.toggleRegistered}
+						handleLogin={this.props.handleLogin}
+					/> : 
+					<RegisterContainer 
+						toggleRegistered={this.toggleRegistered}
+						handleRegister={this.props.handleRegister}
+					/>
 				}
 			</div>
 		)
