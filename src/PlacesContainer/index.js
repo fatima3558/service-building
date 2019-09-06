@@ -55,16 +55,30 @@ class PlacesContainer extends Component {
     }
     
     render() {
-	    const showList = this.state.list.map(place => {
-    		return(
-    			<div key={place.id}>
-    				<p>{place.name}, Rating: {place.rating}</p>
-    				<p>{place.address}</p>
-    				<button onClick={this.seeOne.bind(null, place.id)}>See Reviews</button>
-    				<br/>
-    			</div>
-    		)
-    	})
+        let showList
+        if(this.props.searchList) {
+            showList = this.props.searchList.map(place => {
+                return (
+                    <div key={place.id}>
+                        <p>{place.name}, Rating: {place.rating}</p>
+                        <p>{place.address}</p>
+                        <button onClick={this.seeOne.bind(null, place.id)}>See Reviews</button>
+                        <br/>
+                    </div>
+                )
+            })
+        } else {
+    	   showList = this.state.list.map(place => {
+        		return(
+        			<div key={place.id}>
+        				<p>{place.name}, Rating: {place.rating}</p>
+        				<p>{place.address}</p>
+        				<button onClick={this.seeOne.bind(null, place.id)}>See Reviews</button>
+        				<br/>
+        			</div>
+        		)
+        	})
+        }
 
         return(
             <div>

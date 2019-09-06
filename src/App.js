@@ -36,10 +36,13 @@ class App extends Component {
   }
 
   doSearch = async (search) => {
+    const bodyOfSearch = {
+      query: search
+    }
     const searchResponse = await fetch('http://localhost:8000/places/', {
       method: 'post',
       credentials: 'include',
-      body: JSON.stringify(search),
+      body: JSON.stringify(bodyOfSearch),
       headers: {
         'Content-Type': 'application/json'
       }
