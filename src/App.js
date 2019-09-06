@@ -10,15 +10,16 @@ class App extends Component {
     super()
     this.state = {
       user: null,
-      view: 'user'
+      view: 'user',
+      searchList: null
     }
   }
 
-  // set session after login or register
   setSession = (user) => {
     this.setState({
       user: user,
-      view: 'place'
+      view: 'place',
+      searchResults: []
     })
   }
 
@@ -34,6 +35,24 @@ class App extends Component {
     }
   }
 
+  doSearch = async (search) => {
+    const searchResponse = await fetch('http://localhost:8000/places/', {
+      method: 'post',
+      credentials: 'include',
+      body: JSON.stringify(search),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const searchResults = await searchResponse.json()
+    this.setState({
+      searchList: searchResults
+    })
+    if(this.state.view === 'user') {
+      this.toggleView()
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -41,6 +60,7 @@ class App extends Component {
           user={this.state.user}
           view={this.state.view}
           toggleView={this.toggleView}
+          doSearch={this.doSearch}
         />
         {this.state.view === 'user' ?
           <UsersContainer 
@@ -52,6 +72,7 @@ class App extends Component {
         {this.state.view === 'place' ? 
           <PlacesContainer 
             user={this.state.user}
+            searchList={this.state.searchList}
           /> : null
         }
       </div>

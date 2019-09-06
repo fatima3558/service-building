@@ -6,7 +6,6 @@ class PlacesContainer extends Component {
     constructor() {
         super()
         this.state = {
-            search: '',
             list: [],
             selectedPlace: null,
         }
@@ -17,18 +16,24 @@ class PlacesContainer extends Component {
     }
 
     getList = async () => {
-        const nearbyPlacesResponse = await fetch('http://localhost:8000/places', {
-        	method: 'get',
-        	credentials: 'include'
-        })
-        if(nearbyPlacesResponse.status !== 200) {
-            throw Error('Could not get nearby places')
-        }
-        const nearbyPlaces = await nearbyPlacesResponse.json()
+        if(this.props.searchList !== null) {
+            this.setState({
+                list: this.props.searchResults
+            })
+        } else {
+            const nearbyPlacesResponse = await fetch('http://localhost:8000/places', {
+            	method: 'get',
+            	credentials: 'include'
+            })
+            if(nearbyPlacesResponse.status !== 200) {
+                throw Error('Could not get nearby places')
+            }
+            const nearbyPlaces = await nearbyPlacesResponse.json()
 
-        this.setState({
-            list: [...nearbyPlaces]
-        })
+            this.setState({
+                list: [...nearbyPlaces]
+            })       
+        }
     }
 
     seeOne = async (id) => {

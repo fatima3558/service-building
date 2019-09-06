@@ -4,12 +4,26 @@ class HeaderContainer extends Component {
 	constructor() {
 		super()
 		this.state = {
-
+			search: ''
 		}
+	}
+
+	handleChange = (e) => {
+		this.setState({
+			[e.currentTarget.name]: e.currentTarget.value
+		})
 	}
 
 	seeOtherContainer = () => {
 		this.props.toggleView()
+	}
+
+	submitSearch = (e) => {
+		e.preventDefault()
+		this.props.doSearch(this.state.search)
+		this.setState({
+			search:''
+		})
 	}
 
 	render() {
@@ -24,7 +38,7 @@ class HeaderContainer extends Component {
 								'My Info'
 							}
 						</button>
-						<form onSubmit={this.doSearch}>
+						<form onSubmit={this.submitSearch}>
 						    <input
 						        name="search"
 						        type="text"
