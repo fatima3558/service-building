@@ -86,6 +86,7 @@ class PlacesContainer extends Component {
             		<OnePlaceContainer 
             			selectedPlace={this.state.selectedPlace}
             			seeAll={this.seeAll}
+                        user={this.props.user}
             		/> :
             		<div>
                 		{showList}
