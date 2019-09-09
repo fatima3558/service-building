@@ -25,10 +25,18 @@ class ReviewFormContainer extends Component {
 		e.preventDefault()
 		//create review object to save in db
 		const reviewToSave = {}
-		reviewToSave.place = {
-			name: this.props.selectedPlace.name,
-			googleId: this.props.selectedPlace.place_id,
-			address: this.props.selectedPlace.vicinity
+		if(this.props.selectedPlace.place_id) {
+			reviewToSave.place = {
+				name: this.props.selectedPlace.name,
+				googleId: this.props.selectedPlace.place_id,
+				address: this.props.selectedPlace.vicinity
+			}
+		} else {
+			reviewToSave.place = {
+				name: this.props.selectedPlace.name,
+				googleId: this.props.selectedPlace.googleId,
+				address: this.props.selectedPlace.address
+			}
 		}
 		reviewToSave.user = this.props.user._id
 		reviewToSave.description = this.state.description
