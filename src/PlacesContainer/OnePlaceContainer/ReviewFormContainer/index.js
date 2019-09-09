@@ -4,40 +4,62 @@ class ReviewFormContainer extends Component {
 	constructor() {
 		super()
 		this.state = {
-
+			description: '',
+			program: null
 		}
+	}
+
+	handleChange = (e) => {
+		this.setState({
+			[e.currentTarget.name]: e.currentTarget.value
+		})
+	}
+
+	selectProgram = (e) => {
+		this.setState({
+			program: e.currentTarget.value
+		})
 	}
 
 	handleClick = (e) => {
 		e.preventDefault()
-		// send review object to backend
-			// review form must have:
-			// date (timestamped at backend)
-			// place id (from props)
-			// user id (from props)
-			// description (from the form itself)
-			// program (from form)
 		const reviewToSave = {}
-		// reviewToSave.place = this.props.place.id
-		reviewToSave.user = this.props.user.id
+		reviewToSave.place = {
+			name: this.props.selectedPlace.name,
+			id: this.props.selectedPlace.place_id,
+			address: this.props.selectedPlace.vicinity
+		}
+		reviewToSave.user = this.props.user._id
+		reviewToSave.description = this.state.description
+		reviewToSave.program = this.state.program
 		console.log(reviewToSave);
 	}
-
 
 	render() {
 		return(
 			<div>
-				<h1>Review Form will go here</h1>
+				<h1>Write a Review for {this.props.selectedPlace.name}</h1>
 				<form>
-					<textarea name="description" height="10" width="20"/>
+					Tell us what happened.
+					<textarea 
+						name="description" 
+						height="10" 
+						width="20"
+						onChange={this.handleChange}
+					/>
 					<br/>
-					<select name="program">
-						<option value="">Something</option>
-						<option value="">Something</option>
-						<option value="">Something</option>
-						<option value="">Something</option>
-						<option value="">Something</option>
-						<option value="">Something</option>
+					Pick a category for the main problem you experienced.
+					<select name="program" onChange={this.selectProgram}>
+						<option value="">--</option>
+						<option value="Housing">Chicago Housing Authority</option>
+						<option value="Medical">Medicare / Medicaid</option>
+						<option value="SNAP">SNAP</option>
+						<option value="WIC">WIC</option>
+						<option value="Unemployment">Unemployment</option>
+						<option value="Social Security">SSI / SSDI</option>
+						<option value="Communication">Bad communication (mail, phone, email)</option>
+						<option value="Service">Bad customer service</option>
+						<option value="Other">Other problem</option>
 					</select>
 					<button onClick={this.handleClick}>Post Review</button>
 				</form>

@@ -32,9 +32,9 @@ class OnePlaceContainer extends Component {
 	}
 
 	render() {
-		const listedReviews = this.state.reviews.map(review => {
+		const listedReviews = this.state.reviews.map((review, i) => {
 			return(
-				<div>
+				<div key={i}>
 					{review}
 				</div>
 			)
