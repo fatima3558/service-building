@@ -37,14 +37,25 @@ class PlacesContainer extends Component {
     }
 
     seeOne = async (id) => {
-    	const selectedPlaceResponse = await fetch(`http://localhost:8000/places/${id}`)
+        console.log("seeOne");
+    	const selectedPlaceResponse = await fetch(`http://localhost:8000/places/${id}`, {
+            method: 'GET',
+            credentials: 'include'
+        })
     	if(selectedPlaceResponse.status !== 200) {
     		throw Error('Could not find this place')
     	}
-    	const selectedPlace = await selectedPlaceResponse.json()
+    	const selectedPlace = await selectedPlaceResponse.json() 
+        // if place is coming from google query, the info we want will be in an object inside the selectedPlace object
 
+        let placeToSee
+        if(selectedPlace.result !== undefined) {
+            placeToSee = selectedPlace.result
+        } else {
+            placeToSee = selectedPlace
+        }
     	this.setState({
-    		selectedPlace: selectedPlace
+    		selectedPlace: placeToSee
     	})
     }
 

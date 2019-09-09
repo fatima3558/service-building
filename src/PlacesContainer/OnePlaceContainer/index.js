@@ -7,7 +7,7 @@ class OnePlaceContainer extends Component {
 		super()
 		this.state = {
 			writingReview: false,
-			reviews: ["review1", "review2", "review3"]
+			reviews: []
 		}
 	}
 
@@ -16,8 +16,15 @@ class OnePlaceContainer extends Component {
 	}
 
 	getReviews = async () => {
-		const placeReviewsResponse = await fetch(`http://localhost:8000/reviews/${this.props.selectedPlace.result.place_id}`)
+		let placeReviewsResponse
+		if(this.props.selectedPlace.result) {
+			placeReviewsResponse = await fetch(`http://localhost:8000/reviews/${this.props.selectedPlace.result.place_id}`)
+		} else {
+			placeReviewsResponse = await fetch(`http://localhost:8000/reviews/${this.props.selectedPlace.googleId}`)
+		}
 		const placeReviews = await placeReviewsResponse.json()
+
+		console.log(placeReviews, "place reviews in getReviews in OnePlaceContainer");
 
 		this.setState({
 			reviews: [...placeReviews]
@@ -26,38 +33,55 @@ class OnePlaceContainer extends Component {
 	}
 
 	showReviewForm = () => {
+		//show review form
 		this.setState({
 			writingReview: true
 		})
 	}
 
-	render() {
-		const listedReviews = this.state.reviews.map((review, i) => {
-			return(
-				<div key={i}>
-					{review}
-				</div>
-			)
+	hideReviewForm = () => {
+		//hide review form
+		this.setState({
+			writingReview: false
 		})
+		//get reviews from db again to include new review
+		this.getReviews()
+	}
+
+	render() {
+		console.log("this is this.props in OnePlaceContainer");
+		console.log(this.props);
+		let listedReviews
+		if(this.state.reviews !== []) {
+			listedReviews = this.state.reviews.map((review, i) => {
+				return(
+					<div key={i}>
+						<p>{review.description}</p>
+						<small>{review.date}</small>
+					</div>
+				)
+			})
+		}
 
 		return(
 			<div>
 				{this.state.writingReview ? 
 					<ReviewFormContainer 
-						selectedPlace={this.props.selectedPlace.result}
+						selectedPlace={this.props.selectedPlace}
 						user={this.props.user}
+						hideReviewForm={this.hideReviewForm}
 					/> :
 					<div>
-						<h3>{this.props.selectedPlace.result.name}</h3><br/>
-						<h5>Rating: {this.props.selectedPlace.result.rating}</h5><br/>
-						<h5>Address: {this.props.selectedPlace.result.formatted_address}</h5>
+						<h3>{this.props.selectedPlace.name}</h3><br/>
+						<h5>Rating: {this.props.selectedPlace.rating}</h5><br/>
+						<h5>Address: {this.props.selectedPlace.formatted_address}</h5>
 						<button onClick={this.showReviewForm}>Write a Review</button>
 					</div>
 				}
 				<br/>
 				<br/>
 				<div>
-					{listedReviews}
+					{listedReviews ? listedReviews : null}
 				</div>
 				<button onClick={this.props.seeAll}>Back to places</button>
 			</div>

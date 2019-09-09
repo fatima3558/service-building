@@ -21,18 +21,39 @@ class ReviewFormContainer extends Component {
 		})
 	}
 
-	handleClick = (e) => {
+	handleClick = async (e) => {
 		e.preventDefault()
+		//create review object to save in db
 		const reviewToSave = {}
 		reviewToSave.place = {
 			name: this.props.selectedPlace.name,
-			id: this.props.selectedPlace.place_id,
+			googleId: this.props.selectedPlace.place_id,
 			address: this.props.selectedPlace.vicinity
 		}
 		reviewToSave.user = this.props.user._id
 		reviewToSave.description = this.state.description
 		reviewToSave.program = this.state.program
-		console.log(reviewToSave);
+
+		//request server to save review in db
+		const savedReviewResponse = await fetch(`http://localhost:8000/reviews/new`, {
+			method: 'post',
+			credentials: 'include',
+			body: JSON.stringify(reviewToSave),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		
+		const savedReview = await savedReviewResponse.json()
+		console.log(savedReview, "review that has been saved");
+		//clear form
+		this.setState({
+			description: '',
+			program: null
+		})
+
+		//call method in parent container to refresh reviews and hide form
+		this.props.hideReviewForm()
 	}
 
 	render() {
