@@ -15,12 +15,6 @@ class ReviewFormContainer extends Component {
 		})
 	}
 
-	selectProgram = (e) => {
-		this.setState({
-			program: e.currentTarget.value
-		})
-	}
-
 	handleClick = async (e) => {
 		e.preventDefault()
 		//create review object to save in db
@@ -69,7 +63,7 @@ class ReviewFormContainer extends Component {
 			<div>
 				<h1>Write a Review for {this.props.selectedPlace.name}</h1>
 				<form>
-					Tell us what happened.
+					Tell us what happened.<br/>
 					<textarea 
 						name="description" 
 						height="10" 
@@ -77,8 +71,8 @@ class ReviewFormContainer extends Component {
 						onChange={this.handleChange}
 					/>
 					<br/>
-					Pick a category for the main problem you experienced.
-					<select name="program" onChange={this.selectProgram}>
+					Pick a category for the main problem you experienced.<br/>
+					<select name="program" onChange={this.handleChange}>
 						<option value="">--</option>
 						<option value="Housing">Chicago Housing Authority</option>
 						<option value="Medical">Medicare / Medicaid</option>
@@ -90,6 +84,7 @@ class ReviewFormContainer extends Component {
 						<option value="Service">Bad customer service</option>
 						<option value="Other">Other problem</option>
 					</select>
+					<br/>
 					<button onClick={this.handleClick}>Post Review</button>
 				</form>
 			</div>

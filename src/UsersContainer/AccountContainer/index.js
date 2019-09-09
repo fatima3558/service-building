@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import EditReviewContainer from './EditReviewContainer'
+
 class AccountContainer extends Component {
 	constructor() {
 		super()
@@ -24,14 +26,17 @@ class AccountContainer extends Component {
 		})
 	}
 
-	editReview = async (id, e) => {
-		e.preventDefault()
-		console.log("this is where we will edit a review");
-		console.log(e, id);
+	toggleEdit = async (id, e) => {
+		this.setState({
+			isEditing: !this.state.isEditing
+		})
+
+		if(!this.state.toggleEdit) {
+			this.getReviews()
+		}
 	}
 
 	deleteReview = async (id, e) => {
-		e.preventDefault()
 		console.log("hey delete ", id);
 		// send request to api for db to delete this review
 
@@ -44,13 +49,21 @@ class AccountContainer extends Component {
 	}
 
 	render() {
-		const listReviews = this.state.reviews.map((review, i) => {
+		const listReviews = this.state.reviews.map(review => {
 			return(
-				<div key={i}>
-					<h5>On {review.date.toLocaleString()}, you said:</h5>
-					<p>{review.description}</p><br/>
-					<button onClick={this.editReview.bind(null, review._id)}>Edit</button>
-					<button onClick={this.deleteReview.bind(null, review._id)}>Delete</button>
+				<div key={review._id}>
+					{this.state.isEditing ? 
+						<EditReviewContainer 
+							review={review}
+							toggleEdit={this.toggleEdit}
+						/> : 
+						<div>
+							<h5>On {review.date.toLocaleString()}, you said:</h5>
+							<p>{review.description}</p><br/>
+							<button onClick={this.toggleEdit.bind(null, review._id)}>Edit</button>
+							<button onClick={this.deleteReview.bind(null, review._id)}>Delete</button>
+						</div>
+					}
 				</div>
 			)
 		})
