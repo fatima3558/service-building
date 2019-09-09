@@ -46,14 +46,15 @@ class PlacesContainer extends Component {
     		throw Error('Could not find this place')
     	}
     	const selectedPlace = await selectedPlaceResponse.json() 
-        // if place is coming from google query, the info we want will be in an object inside the selectedPlace object
 
+        // if place is coming from google query, the info we want will be in an object inside the selectedPlace object
         let placeToSee
         if(selectedPlace.result !== undefined) {
             placeToSee = selectedPlace.result
         } else {
             placeToSee = selectedPlace
         }
+        
     	this.setState({
     		selectedPlace: placeToSee
     	})

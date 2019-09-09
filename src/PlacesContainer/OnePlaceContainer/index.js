@@ -24,12 +24,9 @@ class OnePlaceContainer extends Component {
 		}
 		const placeReviews = await placeReviewsResponse.json()
 
-		console.log(placeReviews, "place reviews in getReviews in OnePlaceContainer");
-
 		this.setState({
 			reviews: [...placeReviews]
 		})
-
 	}
 
 	showReviewForm = () => {
@@ -49,8 +46,6 @@ class OnePlaceContainer extends Component {
 	}
 
 	render() {
-		console.log("this is this.props in OnePlaceContainer");
-		console.log(this.props);
 		let listedReviews
 		if(this.state.reviews !== []) {
 			listedReviews = this.state.reviews.map((review, i) => {
