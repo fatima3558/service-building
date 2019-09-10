@@ -78,6 +78,8 @@ class App extends Component {
             searchList={this.state.searchList}
           /> : null
         }
+        <br/><br/><br/><br/>
+        <footer>&copy; Fatima Gomez 2019</footer>
       </div>
     )
   }
