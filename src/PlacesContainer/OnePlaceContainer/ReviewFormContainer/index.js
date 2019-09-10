@@ -32,30 +32,41 @@ class ReviewFormContainer extends Component {
 				address: this.props.selectedPlace.address
 			}
 		}
-		reviewToSave.user = this.props.user._id
 		reviewToSave.description = this.state.description
 		reviewToSave.program = this.state.program
 
+		console.log("this is the review object being sent to the backend");
+		console.log(reviewToSave);
 		//request server to save review in db
-		const savedReviewResponse = await fetch(`http://localhost:8000/reviews/new`, {
-			method: 'post',
-			credentials: 'include',
-			body: JSON.stringify(reviewToSave),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-		
-		const savedReview = await savedReviewResponse.json()
-		console.log(savedReview, "review that has been saved");
-		//clear form
-		this.setState({
-			description: '',
-			program: null
-		})
 
-		//call method in parent container to refresh reviews and hide form
-		this.props.hideReviewForm()
+		try{
+			const savedReviewResponse = await fetch(`http://localhost:8000/reviews/new`, {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify(reviewToSave),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+			console.log(savedReviewResponse);
+			
+			// const savedReview = await savedReviewResponse.json()
+			const wtf = await savedReviewResponse.text()
+			console.log(wtf, "review that has been saved as .text()");
+			//clear form
+			this.setState({
+				description: '',
+				program: null
+			})
+
+			//call method in parent container to refresh reviews and hide form
+			this.props.hideReviewForm()
+
+		}
+		catch (err) {
+			console.error("Error posting Review")
+			console.error(err);
+		}
 	}
 
 	render() {

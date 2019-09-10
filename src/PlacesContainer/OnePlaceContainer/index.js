@@ -17,14 +17,18 @@ class OnePlaceContainer extends Component {
 
 	getReviews = async () => {
 		let placeReviewsResponse
+		console.log("about to try to send request for updated placeReviews");
 		if(this.props.selectedPlace.result) {
 			placeReviewsResponse = await fetch(`http://localhost:8000/reviews/${this.props.selectedPlace.result.place_id}`)
 		} else {
 			placeReviewsResponse = await fetch(`http://localhost:8000/reviews/${this.props.selectedPlace.googleId}`)
 		}
 		const placeReviews = await placeReviewsResponse.json()
+		console.log("placeReviews after getting a response from my api");
+		console.log(placeReviews);
 
 		this.setState({
+			writingReview: false,
 			reviews: [...placeReviews]
 		})
 	}
@@ -38,6 +42,7 @@ class OnePlaceContainer extends Component {
 
 	hideReviewForm = () => {
 		//hide review form
+		console.log("about to reset state in hideReviewForm in OnePlaceContainer");
 		this.setState({
 			writingReview: false
 		})
