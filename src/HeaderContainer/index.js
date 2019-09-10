@@ -30,24 +30,30 @@ class HeaderContainer extends Component {
 		return(
 			<div>
 				{this.props.user ? 
-					<div>
-						<p>Welcome, {this.props.user.username}</p>
-						<button onClick={this.seeOtherContainer}>
-							{this.props.view === 'user' ?
-								'Nearby Places' :
-								'My Info'
-							}
-						</button>
-						<form onSubmit={this.submitSearch}>
-						    <input
-						        name="search"
-						        type="text"
-						        placeholder="search for a place"
-						        value={this.state.search}
-						        onChange={this.handleChange}
-						    />
-						    <button>Search</button>
-						</form>
+					<div id="header-container">
+						<div id="left">
+							<button onClick={this.seeOtherContainer}>
+								{this.props.view === 'user' ?
+									'Nearby Places' :
+									`${this.props.user.username}'s Account`
+								}
+							</button>
+						</div>
+						<div id="center">
+							<h1>ServiceBuilding</h1>
+						</div>
+						<div id="right">
+							<form onSubmit={this.submitSearch}>
+							    <input
+							        name="search"
+							        type="text"
+							        placeholder="search for a place"
+							        value={this.state.search}
+							        onChange={this.handleChange}
+							    />
+							    <button>Search</button>
+							</form>
+						</div>
 					</div> : 
 					null
 				}

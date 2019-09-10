@@ -2,7 +2,13 @@
   text-align: center;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
+  background-image: url('/public/blue-background.jpg');  
   background-color: #D0ECF8;
 }
 
@@ -21,7 +27,7 @@ button, input {
 
 button {
   background-color: #D3DCDE;
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 input {
@@ -32,3 +38,41 @@ input {
 footer {
   margin-bottom: 0;
 }
+
+/* Header */
+#header-container {
+  display: flex;
+  flex-flow: row column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#header-container #left {
+  flex: 2;
+  align-self: flex-start;
+  margin: auto;
+}
+
+#left button {
+  margin-left: 0;
+}
+
+#header-container #center {
+  flex: 1;
+}
+
+#header-container #right {
+  flex: 2;
+  align-self: flex-end;
+  margin: auto;
+  }
+
+/* Places */
+
+
+
+
+
+
+
+
