@@ -71,7 +71,7 @@ class PlacesContainer extends Component {
         if(this.props.searchList) {
             showList = this.props.searchList.map(place => {
                 return (
-                    <div class="single-place" key={place.id}>
+                    <div className="single-item" key={place.id}>
                         <p>{place.name}, Rating: {place.rating}</p>
                         <p>{place.address}</p>
                         <button onClick={this.seeOne.bind(null, place.id)}>See Reviews</button>
@@ -82,7 +82,7 @@ class PlacesContainer extends Component {
         } else {
     	   showList = this.state.list.map(place => {
         		return(
-        			<div key={place.id}>
+        			<div className="single-item" key={place.id}>
         				<p>{place.name}, Rating: {place.rating}</p>
         				<p>{place.address}</p>
         				<button onClick={this.seeOne.bind(null, place.id)}>See Reviews</button>

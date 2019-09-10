@@ -53,10 +53,6 @@ footer {
   margin: auto;
 }
 
-#left button {
-  margin-left: 0;
-}
-
 #header-container #center {
   flex: 1;
 }
@@ -68,7 +64,21 @@ footer {
   }
 
 /* Places */
+#places-container {
+  display: flex;
+  flex-flow: column row;
+  justify-content: center; 
+}
 
+.single-item {
+  background-color: #FDF8E1;
+  border-radius: 10px;
+  box-shadow: 2px 5px #CCC;
+}
+
+.single-item button {
+  margin-bottom: 10px;
+}
 
 
 

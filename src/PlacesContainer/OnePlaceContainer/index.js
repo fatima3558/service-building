@@ -55,7 +55,7 @@ class OnePlaceContainer extends Component {
 		if(this.state.reviews !== []) {
 			listedReviews = this.state.reviews.map((review, i) => {
 				return(
-					<div key={i}>
+					<div className="single-place" key={i}>
 						<p>{review.description}</p>
 						<small>{review.date}</small>
 					</div>

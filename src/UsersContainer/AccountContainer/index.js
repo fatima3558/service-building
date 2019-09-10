@@ -57,7 +57,7 @@ class AccountContainer extends Component {
 							review={review}
 							toggleEdit={this.toggleEdit}
 						/> : 
-						<div>
+						<div className="single-item">
 							<h5>On {review.date.toLocaleString()}, you said:</h5>
 							<p>{review.description}</p><br/>
 							<button onClick={this.toggleEdit.bind(null, review._id)}>Edit</button>
