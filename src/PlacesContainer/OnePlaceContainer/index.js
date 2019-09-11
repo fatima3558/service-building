@@ -65,7 +65,7 @@ class OnePlaceContainer extends Component {
 
 		return(
 			<div id="one-place-container">
-				<div className="list">
+				<div>
 					{this.state.writingReview ? 
 						<ReviewFormContainer 
 							selectedPlace={this.props.selectedPlace}
@@ -82,7 +82,7 @@ class OnePlaceContainer extends Component {
 					}
 					<br/>
 					<br/>
-					<div>
+					<div className="list">
 						{listedReviews ? listedReviews : null}
 					</div>
 				</div>
