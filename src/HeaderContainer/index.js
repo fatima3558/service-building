@@ -38,6 +38,7 @@ class HeaderContainer extends Component {
 									`${this.props.user.username}'s Account`
 								}
 							</button>
+							<button onClick={this.props.logout}>Log Out</button>
 						</div>
 						<div id="center">
 							<h1>ServiceBuilding</h1>

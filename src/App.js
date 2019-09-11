@@ -56,6 +56,22 @@ class App extends Component {
     }
   }
 
+
+  logout = async () => {
+    try {
+      const deleteUserResponse = await fetch(`http://localhost:8000/users/logout`)
+      const deleteUser = await deleteUserResponse.json()
+
+      this.setState({
+        user: null,
+        view: 'user',
+        searchList: null
+      })
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -64,6 +80,7 @@ class App extends Component {
           view={this.state.view}
           toggleView={this.toggleView}
           doSearch={this.doSearch}
+          logout={this.logout}
         />
         {this.state.view === 'user' ?
           <UsersContainer 
