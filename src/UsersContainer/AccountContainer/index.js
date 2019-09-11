@@ -69,11 +69,11 @@ class AccountContainer extends Component {
 		})
 
 		return(
-			<div>
+			<div id="account-container">
 				<h1>{this.props.user.username}'s Account Information</h1>
 				<h5>Zip Code: <span>{this.props.user.zipcode}</span></h5>
 				<h5>Phone Number: <span>{this.props.user.phone}</span></h5>
-				<div>
+				<div className="list">
 					{listReviews}
 				</div>
 			</div>

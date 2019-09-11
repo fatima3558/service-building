@@ -55,7 +55,7 @@ class OnePlaceContainer extends Component {
 		if(this.state.reviews !== []) {
 			listedReviews = this.state.reviews.map((review, i) => {
 				return(
-					<div className="single-place" key={i}>
+					<div className="single-item" key={i}>
 						<p>{review.description}</p>
 						<small>{review.date}</small>
 					</div>
@@ -64,26 +64,28 @@ class OnePlaceContainer extends Component {
 		}
 
 		return(
-			<div>
-				{this.state.writingReview ? 
-					<ReviewFormContainer 
-						selectedPlace={this.props.selectedPlace}
-						user={this.props.user}
-						hideReviewForm={this.hideReviewForm}
-					/> :
+			<div id="one-place-container">
+				<div className="list">
+					{this.state.writingReview ? 
+						<ReviewFormContainer 
+							selectedPlace={this.props.selectedPlace}
+							user={this.props.user}
+							hideReviewForm={this.hideReviewForm}
+						/> :
+						<div>
+							<h3>{this.props.selectedPlace.name}</h3><br/>
+							<h5>Rating: {this.props.selectedPlace.rating}</h5><br/>
+							<h5>Address: {this.props.selectedPlace.formatted_address}</h5>
+							<button onClick={this.showReviewForm}>Write a Review</button>
+							<button onClick={this.props.seeAll}>Back to places</button>
+						</div>
+					}
+					<br/>
+					<br/>
 					<div>
-						<h3>{this.props.selectedPlace.name}</h3><br/>
-						<h5>Rating: {this.props.selectedPlace.rating}</h5><br/>
-						<h5>Address: {this.props.selectedPlace.formatted_address}</h5>
-						<button onClick={this.showReviewForm}>Write a Review</button>
+						{listedReviews ? listedReviews : null}
 					</div>
-				}
-				<br/>
-				<br/>
-				<div>
-					{listedReviews ? listedReviews : null}
 				</div>
-				<button onClick={this.props.seeAll}>Back to places</button>
 			</div>
 		)
 	}

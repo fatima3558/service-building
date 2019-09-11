@@ -100,7 +100,7 @@ class PlacesContainer extends Component {
             			seeAll={this.seeAll}
                         user={this.props.user}
             		/> :
-            		<div id="list">
+            		<div className="list">
                 		{showList}
                 	</div>
             	}

@@ -20,9 +20,10 @@ h2, h3, h4, h5, h6, p, form, input {
   font-family: 'Open Sans', sans-serif;
 }
 
-button, input {
+button, input, select {
   height: 25px;
   border-radius: 3px;
+  font-size: 14px;
 }
 
 button {
@@ -35,11 +36,22 @@ input {
   background-color: #E8F2F4;
 }
 
+textarea {
+  height: 150px;
+  width: 350px;
+  border-radius: 3px;
+  background-color: #E8F2F4;
+  font-size: 14px;
+}
+
+select {
+  background-color: #E8F2F4;
+}
+
 footer {
   margin-bottom: 0;
 }
 
-/* Header */
 #header-container {
   display: flex;
   flex-flow: row column;
@@ -63,24 +75,23 @@ footer {
   margin: auto;
   }
 
-/* Places */
-#places-container {
+#places-container .list, #one-place-container .list, #account-container .list {
   display: flex;
-  flex-flow: column row;
+  flex-direction: column-reverse;
   justify-content: center; 
+  margin: auto 30%;
 }
 
 .single-item {
   background-color: #FDF8E1;
   border-radius: 10px;
   box-shadow: 2px 5px #CCC;
+  margin: 5px;
 }
 
 .single-item button {
   margin-bottom: 10px;
 }
-
-
 
 
 
